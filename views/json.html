@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试jsonp</title>
+</head>
+<body>
+<script type='text/javascript'>
+    //1.创建一个标签
+    var script = document.createElement('script');
+    //1.1 创建回调函数名称
+    var funName='callback'+Date.now();//callback1488512267932
+    //2.给src
+    script.src='http:127.0.0.1:3000?/getMsg?callback='+funName;//script本身就可以跨域
+    //3.给window挂载函数
+    window[funName]=function(data){//全局中有callback1488512267932这个函数
+        console.log(data);
+    }
+    ////callback1488512267932('{"name":"jack"}')服务端响应数据并且自动执行
+    //4.添加进body中
+    document.body.appendChild(script);
+</script>
+</body>
+</html>
